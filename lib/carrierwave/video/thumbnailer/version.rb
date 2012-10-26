@@ -1,4 +1,4 @@
-module Carrierwave
+module CarrierWave
   module Video
     module Thumbnailer
       # carrierwave-video-thumbnailer version

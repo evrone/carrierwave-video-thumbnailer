@@ -1,7 +1,7 @@
 require 'spec_helper'
 require 'carrierwave/video/thumbnailer'
 
-describe Carrierwave::Video::Thumbnailer do
+describe CarrierWave::Video::Thumbnailer do
   class Thumbnailer; end
 
   class TestVideoThumbnailer
