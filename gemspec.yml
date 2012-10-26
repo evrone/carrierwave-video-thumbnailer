@@ -1,6 +1,6 @@
 name: carrierwave-video-thumbnailer
-summary: "TODO: Summary"
-description: "TODO: Description"
+summary: "Video thumbnailer plugin for CarrierWave"
+description: "Lets you make video thumbnails in carrierwave via ffmpegthumbnailer"
 license: MIT
 authors: Pavel Argentov
 email: argentoff@gmail.com
