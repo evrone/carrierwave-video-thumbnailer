@@ -5,13 +5,23 @@ module CarrierWave
   module Video
     module Thumbnailer
       extend ActiveSupport::Concern
-      def self.ffmpegthumbnailer_binary=(bin)
-        @ffmpegthumbnailer = bin
+
+      # Explicit class methods
+      class << self
+
+        # Sets a required thumbnailer binary
+        def ffmpegthumbnailer_binary=(bin)
+          @ffmpegthumbnailer = bin
+        end
+
+        # Tells the thumbnailer binary name
+        def ffmpegthumbnailer_binary
+          @ffmpegthumbnailer.nil? ? 'ffmpegthumbnailer' : @ffmpegthumbnailer
+        end
+
       end
 
-      def self.ffmpegthumbnailer_binary
-        @ffmpegthumbnailer.nil? ? 'ffmpegthumbnailer' : @ffmpegthumbnailer
-      end
+
     end
   end
 end
