@@ -1,0 +1,2 @@
+carrierwave-video-thumbnailer
+=============================
