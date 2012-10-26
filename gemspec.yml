@@ -7,6 +7,8 @@ email: argentoff@gmail.com
 homepage: https://github.com/argent-smith/carrierwave-video-thumbnailer#readme
 
 development_dependencies:
+  pry: '>= 0'
+  activesupport: ~> 3.2.8
   bundler: ~> 1.0
   rake: ~> 0.8
   rspec: ~> 2.4

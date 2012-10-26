@@ -3,10 +3,6 @@ require 'carrierwave/video/thumbnailer'
 
 describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
 
-  it "should have a VERSION constant" do
-    subject.const_get('VERSION').should_not be_empty
-  end
-
   describe "#run" do
     let(:input_file_path) { '/tmp/file.mov' }
     let(:output_file_path) { '/tmp/file.jpg' }
@@ -15,7 +11,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
     let(:thumbnailer) { CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.new(input_file_path, output_file_path) }
 
     before do
-      CarrierWave::Video.ffmpegthumbnailer_binary = binary
+      CarrierWave::Video::Thumbnailer.ffmpegthumbnailer_binary = binary
     end
 
     it "should run the ffmpegthumbnailer binary" do
