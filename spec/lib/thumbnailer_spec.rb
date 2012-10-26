@@ -9,7 +9,7 @@ describe CarrierWave::Video::Thumbnailer do
 
   class Thumbnailer; end
 
-  class TestVideoThumbnailer
+  class TestVideoUploader
     include CarrierWave::Video::Thumbnailer
     def cached?; end
     def cache_stored_file!; end
@@ -18,17 +18,17 @@ describe CarrierWave::Video::Thumbnailer do
     end
   end
 
-  let(:thumbnailer) { TestVideoThumbnailer.new }
+  let(:thumbnailer) { TestVideoUploader.new }
 
-  describe "::thumbnail" do
+  describe ".thumbnail" do
     it "processes the model" do
-      TestVideoThumbnailer.should_receive(:process).with(thumbnail: :opts)
-      TestVideoThumbnailer.thumbnail(:opts)
+      TestVideoUploader.should_receive(:process).with(thumbnail: ['format', :opts])
+      TestVideoUploader.thumbnail 'format', :opts
     end
 
     it "does not require options" do
-      TestVideoThumbnailer.should_receive(:process).with(thumbnail: {})
-      TestVideoThumbnailer.thumbnail
+      TestVideoUploader.should_receive(:process).with(thumbnail: ['format', {}])
+      TestVideoUploader.thumbnail 'format'
     end
   end
 
@@ -146,69 +146,6 @@ describe CarrierWave::Video::Thumbnailer do
         thumbnailer.thumbnail(format, custom: '-s 256')
       end
     end
-
-    ##
-    # NEXT WORKDAY :)
-    #
-
-    # context "given a block" do
-    #   let(:movie) { mock }
-    #   let(:opts) { {} }
-    #   let(:params) { { resolution: "640x360", watermark: {}, video_codec: "libvpx", audio_codec: "libvorbis", custom: "-b 1500k -ab 160000 -f webm -g 30" } }
-
-    #   before do
-    #     File.should_receive(:rename)
-    #     movie.stub(:resolution).and_return('1280x720')
-    #   end
-
-    #   it "calls the block, with the movie file and params" do
-    #     movie.should_receive(:transcode) do |path, format_opts, codec_opts|
-    #       format_opts[:video_codec].should == 'libvpx'
-    #       format_opts[:audio_codec].should == 'libvorbis'
-    #     end
-
-    #     expect {
-    #       |block| thumbnailer.thumbnail(format, opts, &block)
-    #     }.to yield_with_args(movie, params)
-    #   end
-
-    #   it "allows the block to modify the params" do
-    #     block = Proc.new { |input, params| params[:custom] = '-preset slow' }
-
-    #     movie.should_receive(:transcode) do |path, format_opts, codec_opts|
-    #       format_opts[:custom].should == '-preset slow'
-    #     end
-
-    #     thumbnailer.thumbnail(format, opts, &block)
-    #   end
-
-    #   it "evaluates the final params after any modifications" do
-    #     block = Proc.new do |input, params|
-    #       params[:custom] = '-preset slow'
-    #       params[:watermark][:path] = 'customized/path'
-    #     end
-
-    #     movie.should_receive(:transcode) do |path, format_opts, codec_opts|
-    #       format_opts[:custom].should == '-preset slow -vf "movie=customized/path [logo]; [in][logo] overlay= [out]"'
-    #     end
-
-    #     thumbnailer.thumbnail(format, opts, &block)
-    #   end
-
-    #   it "gives preference to the block-provided settings" do
-    #     opts = { resolution: :same }
-
-    #     block = Proc.new do |input, params|
-    #       params[:resolution] = '1x1'
-    #     end
-
-    #     movie.should_receive(:transcode) do |path, format_opts, codec_opts|
-    #       format_opts[:resolution].should == '1x1'
-    #     end
-
-    #     thumbnailer.thumbnail(format, opts, &block)
-    #   end
-    # end
   end
 end
 
