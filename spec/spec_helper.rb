@@ -1,4 +1,6 @@
 require 'rspec'
 require 'carrierwave/video/thumbnailer/version'
 
-include Carrierwave::Video::Thumbnailer
+RSpec.configure do |config|
+    config.mock_with :rspec
+end

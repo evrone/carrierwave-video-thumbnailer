@@ -25,6 +25,15 @@
 
     $ gem install carrierwave-video-thumbnailer
 
+## Acknowledgements
+
+Huge Thanks to **Rachel Heaton** (<https://github.com/rheaton>) whose
+`carrierwave-video` gem has inspired me (and where I've borrowed some code as
+well).
+
+Thanks to [Evrone WebLab](http://evrone.com) which feeds me well enough (with the
+tasks of course) to do this job.
+
 ## Copyright
 
 Copyright (c) 2012 Pavel Argentov
