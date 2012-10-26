@@ -1,0 +1,14 @@
+name: carrierwave-video-thumbnailer
+summary: "TODO: Summary"
+description: "TODO: Description"
+license: MIT
+authors: Pavel Argentov
+email: argentoff@gmail.com
+homepage: https://github.com/argent-smith/carrierwave-video-thumbnailer#readme
+
+development_dependencies:
+  bundler: ~> 1.0
+  rake: ~> 0.8
+  rspec: ~> 2.4
+  rubygems-tasks: ~> 0.2
+  yard: ~> 0.8
