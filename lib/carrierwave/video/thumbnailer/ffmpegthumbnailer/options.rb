@@ -2,8 +2,8 @@ module CarrierWave
   module Video
     module Thumbnailer
 
-      # Settings to be be converted to CLI parameters
-      class Setting < Hash
+      # Options to be be converted to CLI parameters
+      class Options < Hash
 
         def initialize opts
           opts.each { |k, v| self[k] = v}
@@ -18,11 +18,7 @@ module CarrierWave
         private
 
         def cli_key k
-          case k
-          when :format  then '-c'
-          when :options then self[k].each { |key, val| "#{cli_key key} #{cli_val val}" } if self[k] and not self[k].empty?
-          else ''
-          end
+          '--key'
         end
 
         def cli_val v
@@ -37,16 +33,17 @@ module CarrierWave
 
       class FFMpegThumbnailerOptions
 
-        attr_reader :format, :options, :logger
+        attr_reader :format, :options, :logger, :callbacks
 
-        def initialize format, options
-          @format   = Setting.new format:   format
-          @logger   = options.delete :logger
-          @options  = Setting.new options:  options
+        def initialize options
+          @callbacks  = options.delete(:callbacks) || {}
+          @format     = options.delete  :format
+          @logger     = options.delete  :logger
+          @options    = Options.new     options
         end
 
         def to_cli
-          @options.to_cli
+          %Q{#{"-c #{format}" if format} #{@options.to_cli}}
         end
 
       end

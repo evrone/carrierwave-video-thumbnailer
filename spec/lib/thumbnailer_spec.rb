@@ -7,57 +7,54 @@ describe CarrierWave::Video::Thumbnailer do
     subject.const_get('VERSION').should_not be_empty
   end
 
-  class Thumbnailer; end
+  class FFMpegThumbnailer; end
 
   class TestVideoUploader
     include CarrierWave::Video::Thumbnailer
     def cached?; end
     def cache_stored_file!; end
     def model
-      @thumbnailer ||= Thumbnailer.new
+      @thumbnailer ||= FFMpegThumbnailer.new
     end
   end
 
-  let(:thumbnailer) { TestVideoUploader.new }
+  let(:uploader) { TestVideoUploader.new }
 
   describe ".thumbnail" do
     it "processes the model" do
-      TestVideoUploader.should_receive(:process).with(thumbnail: ['format', :opts])
-      TestVideoUploader.thumbnail 'format', :opts
+      TestVideoUploader.should_receive(:process).with(thumbnail: {option: 'something'})
+      TestVideoUploader.thumbnail({option: 'something'})
     end
 
     it "does not require options" do
-      TestVideoUploader.should_receive(:process).with(thumbnail: ['format', {}])
-      TestVideoUploader.thumbnail 'format'
+      TestVideoUploader.should_receive(:process).with(thumbnail: {})
+      TestVideoUploader.thumbnail
     end
   end
 
   describe "#thumbnail" do
-    let(:format) { 'jpg' }
-    let(:movie) { mock }
+    let(:format)      { 'jpg' }
+    let(:thumbnailer) { mock  }
 
     before do
-      thumbnailer.stub(:current_path).and_return('video/path/file.mov')
+      uploader.stub(:current_path).and_return('video/path/file.jpg')
 
-      CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:new).and_return(movie)
+      CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:new).and_return(thumbnailer)
     end
 
     context "with no options set" do
-      before {  File.should_receive(:rename) }
+      before {  File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
-      it "calls transcode with correct format options" do
-        movie.should_receive(:thumbnail) do |path, opts, format_opts|
-          expect(format_opts).to eq({format: :jpg})
-          expect(opts[:format]).to eq 'jpg'
-          expect(path).to eq "video/path/tmpfile.#{format}"
+      it "calls transcode with empty options list" do
+        thumbnailer.should_receive(:run) do |options|
+          expect(options.options).to be_empty
         end
-
-        thumbnailer.thumbnail(format)
+        uploader.thumbnail
       end
     end
 
     context "with callbacks set" do
-      before { movie.should_receive(:thumbnail) }
+      before { thumbnailer.should_receive(:run) }
       let(:opts) do
         {
           callbacks: {
@@ -103,8 +100,8 @@ describe CarrierWave::Video::Thumbnailer do
     context "with logger set" do
       let(:logger) { mock }
       before do
-        thumbnailer.model.stub(:logger).and_return(logger)
-        movie.should_receive(:transcode)
+        uploader.model.stub(:logger).and_return(logger)
+        thumbnailer.should_receive(:run)
       end
 
       context "with no exceptions" do

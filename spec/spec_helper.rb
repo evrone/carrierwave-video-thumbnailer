@@ -1,5 +1,5 @@
 require 'rspec'
-require 'active_support'
+require 'active_support/all'
 require 'carrierwave/video/thumbnailer'
 
 RSpec.configure do |config|

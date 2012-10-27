@@ -15,7 +15,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
     end
 
     it "should run the ffmpegthumbnailer binary" do
-      @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new('jpg', {})
+      @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new({})
       command = "#{binary} -i #{input_file_path} -o #{output_file_path}"
       Open3.should_receive(:popen3).with(command)
 
@@ -26,7 +26,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
       let(:logger) { mock(:logger) }
 
       it "should run and log results" do
-        @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new('jpg', {logger: logger})
+        @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new({logger: logger})
         command = "#{binary} -i #{input_file_path} -o #{output_file_path}"
         Open3.should_receive(:popen3).with(command)
         logger.should_receive(:info).with("Running....#{command}")

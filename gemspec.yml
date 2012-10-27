@@ -6,6 +6,9 @@ authors: Pavel Argentov
 email: argentoff@gmail.com
 homepage: https://github.com/argent-smith/carrierwave-video-thumbnailer#readme
 
+dependencies:
+  carrierwave: '>= 0'
+
 development_dependencies:
   pry: '>= 0'
   activesupport: ~> 3.2.8
