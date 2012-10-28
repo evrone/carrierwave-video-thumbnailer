@@ -39,7 +39,7 @@ describe CarrierWave::Video::Thumbnailer do
     before do
       uploader.stub(:current_path).and_return('video/path/file.jpg')
 
-      CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:new).and_return(thumbnailer)
+      CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:new).at_most(10).times.and_return(thumbnailer)
     end
 
     context "with no options set" do
@@ -67,15 +67,15 @@ describe CarrierWave::Video::Thumbnailer do
       end
 
       context "no exceptions raised" do
-        before {  File.should_receive(:rename) }
+        before {  File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
         it "calls before_thumbnail, after_thumbnail, and ensure" do
-          thumbnailer.model.should_receive(:method1).with(format, opts).ordered
-          thumbnailer.model.should_receive(:method2).with(format, opts).ordered
-          thumbnailer.model.should_not_receive(:method3)
-          thumbnailer.model.should_receive(:method4).with(format, opts).ordered
+          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method2).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_not_receive(:method3)
+          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
 
-          thumbnailer.thumbnail(format, opts)
+          uploader.thumbnail(opts)
         end
       end
 

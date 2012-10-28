@@ -58,7 +58,7 @@ module CarrierWave
       end
 
       def send_callback(callback)
-        model.send(callback, @options.format, @options.raw) if callback.present?
+        model.send(callback, @options) if callback.present?
       end
 
       def setup_logger
