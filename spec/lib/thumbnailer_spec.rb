@@ -131,16 +131,14 @@ describe CarrierWave::Video::Thumbnailer do
     end
 
     context "with custom passed in" do
-      before do
-        File.should_receive(:rename)
-      end
+      before { File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
       it "takes the provided custom param" do
-        movie.should_receive(:thumbnail) do |path, opts, format_opts|
-          opts[:custom].should eq '-s 256'
+        thumbnailer.should_receive(:run) do |opts|
+          opts.custom.should eq '-s 256'
         end
 
-        thumbnailer.thumbnail(format, custom: '-s 256')
+        uploader.thumbnail(custom: '-s 256')
       end
     end
   end

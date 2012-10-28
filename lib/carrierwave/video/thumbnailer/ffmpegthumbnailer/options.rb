@@ -33,17 +33,18 @@ module CarrierWave
 
       class FFMpegThumbnailerOptions
 
-        attr_reader :format, :options, :logger, :callbacks
+        attr_reader :format, :options, :logger, :callbacks, :custom
 
         def initialize options
           @callbacks  = options.delete(:callbacks) || {}
+          @custom     = options.delete  :custom
           @format     = options.delete  :format
           @logger     = options.delete  :logger
           @options    = Options.new     options
         end
 
         def to_cli
-          %Q{#{"-c #{format}" if format} #{@options.to_cli}}
+          %Q{#{"-c #{format} " if format}#{@options.to_cli}#{" #{custom}" if custom}}
         end
 
       end
