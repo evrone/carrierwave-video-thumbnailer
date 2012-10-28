@@ -124,7 +124,7 @@ describe CarrierWave::Video::Thumbnailer do
           logger.should_receive(:error).any_number_of_times  # backtrace
 
           lambda do
-            uploader.thumbnail(format, logger: :logger)
+            uploader.thumbnail(logger: logger)
           end.should raise_exception(CarrierWave::ProcessingError)
         end
       end
