@@ -7,7 +7,7 @@ describe CarrierWave::Video::Thumbnailer do
     subject.const_get('VERSION').should_not be_empty
   end
 
-  class FFMpegThumbnailer; end
+  #class FFMpegThumbnailer; end
 
   class TestVideoUploader
     include CarrierWave::Video::Thumbnailer
@@ -70,10 +70,10 @@ describe CarrierWave::Video::Thumbnailer do
         before {  File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
         it "calls before_thumbnail, after_thumbnail, and ensure" do
-          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
-          uploader.model.should_receive(:method2).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
+          uploader.model.should_receive(:method2).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
           uploader.model.should_not_receive(:method3)
-          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
 
           uploader.thumbnail(opts)
         end
@@ -85,10 +85,10 @@ describe CarrierWave::Video::Thumbnailer do
 
 
         it "calls before_thumbnail and ensure" do
-          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
           uploader.model.should_not_receive(:method2)
-          uploader.model.should_receive(:method3).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
-          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method3).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
+          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions).ordered
 
           lambda do
             uploader.thumbnail(opts)
@@ -105,26 +105,26 @@ describe CarrierWave::Video::Thumbnailer do
       end
 
       context "with no exceptions" do
-        before { File.should_receive(:rename) }
+        before { File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
         it "sets FFMpegThumbnailer logger to logger and resets" do
-          old_logger = ::FFMpegThumbnailer.logger
-          ::FFMpegThumbnailer.should_receive(:logger=).with(logger).ordered
-          ::FFMpegThumbnailer.should_receive(:logger=).with(old_logger).ordered
-          thumbnailer.thumbnail(format, logger: :logger)
+          old_logger = CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.logger
+          CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:logger=).with(logger).ordered
+          CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.should_receive(:logger=).with(old_logger).ordered
+          uploader.thumbnail(logger: logger)
         end
       end
 
       context "with exceptions" do
         let(:e) { StandardError.new("test error") }
-        before { File.should_receive(:rename).and_raise(e) }
+        before { File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg').and_raise(e) }
 
         it "logs exception" do
           logger.should_receive(:error).with("#{e.class}: #{e.message}")
           logger.should_receive(:error).any_number_of_times  # backtrace
 
           lambda do
-            thumbnailer.thumbnail(format, logger: :logger)
+            uploader.thumbnail(format, logger: :logger)
           end.should raise_exception(CarrierWave::ProcessingError)
         end
       end

@@ -18,6 +18,17 @@ module CarrierWave
             @ffmpegthumbnailer.nil? ? 'ffmpegthumbnailer' : @ffmpegthumbnailer
           end
 
+          def logger= log
+            @logger = log
+          end
+
+          def logger
+            return @logger if @logger
+            logger = Logger.new(STDOUT)
+            logger.level = Logger::INFO
+            @logger = logger
+          end
+
         end
 
         attr_reader :input_path, :output_path
