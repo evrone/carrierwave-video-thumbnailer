@@ -5,28 +5,45 @@ module CarrierWave
       # Options to be be converted to CLI parameters
       class Options < Hash
 
+        BOOLEAN = [
+          :square,
+          :strip,
+          :workaround
+        ]
+
         def initialize opts
           opts.each { |k, v| self[k] = v}
         end
 
         def to_cli
           self.map do |k, v|
-            "#{cli_key k} #{cli_val v}"
+            if BOOLEAN.include? k
+              cli_key k if v
+            else
+              "#{cli_key k} #{cli_val v}"
+            end
           end.join(' ')
         end
 
         private
 
         def cli_key k
-          '--key'
+          '-' + (
+                  case k
+                  when :size        then 's'
+                  when :seek        then 't'
+                  when :quality     then 'q'
+                  when :square      then 'a'
+                  when :strip       then 'f'
+                  when :workaround  then 'w'
+                  else
+                    '-noop'
+                  end
+          )
         end
 
         def cli_val v
-          if v
-            v.empty? ? '' : v.to_s
-          else
-            ''
-          end
+            v.to_s
         end
 
       end

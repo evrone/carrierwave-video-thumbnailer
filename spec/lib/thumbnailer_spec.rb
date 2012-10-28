@@ -45,7 +45,7 @@ describe CarrierWave::Video::Thumbnailer do
     context "with no options set" do
       before {  File.should_receive(:rename).with('video/path/tmpfile.jpg', 'video/path/file.jpg') }
 
-      it "calls transcode with empty options list" do
+      it "runs the thumbnailer with empty options list" do
         thumbnailer.should_receive(:run) do |options|
           expect(options.options).to be_empty
         end
@@ -141,6 +141,7 @@ describe CarrierWave::Video::Thumbnailer do
         uploader.thumbnail(custom: '-s 256')
       end
     end
+
   end
 end
 
