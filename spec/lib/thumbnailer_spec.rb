@@ -85,13 +85,13 @@ describe CarrierWave::Video::Thumbnailer do
 
 
         it "calls before_thumbnail and ensure" do
-          thumbnailer.model.should_receive(:method1).with(format, opts).ordered
-          thumbnailer.model.should_not_receive(:method2)
-          thumbnailer.model.should_receive(:method3).with(format, opts).ordered
-          thumbnailer.model.should_receive(:method4).with(format, opts).ordered
+          uploader.model.should_receive(:method1).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_not_receive(:method2)
+          uploader.model.should_receive(:method3).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
+          uploader.model.should_receive(:method4).with(an_instance_of CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions)
 
           lambda do
-            thumbnailer.thumbnail(format, opts)
+            uploader.thumbnail(opts)
           end.should raise_exception(CarrierWave::ProcessingError)
         end
       end
