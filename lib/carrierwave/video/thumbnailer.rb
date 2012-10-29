@@ -24,7 +24,7 @@ module CarrierWave
         tmp_path = File.join( File.dirname(current_path), "tmpfile.#{format}" )
         thumbnailer = FFMpegThumbnailer.new(current_path, tmp_path)
 
-        with_callbacks do
+        with_thumbnailing_callbacks do
           thumbnailer.run(@options)
           File.rename tmp_path, current_path
         end
@@ -32,16 +32,16 @@ module CarrierWave
 
       private
 
-      def with_callbacks(&block)
+      def with_thumbnailing_callbacks(&block)
         callbacks = @options.callbacks
         logger = @options.logger
         begin
-          send_callback(callbacks[:before_thumbnail])
-          setup_logger
+          send_thumbnailing_callback(callbacks[:before_thumbnail])
+          setup_thumbnailing_logger
           block.call
-          send_callback(callbacks[:after_thumbnail])
+          send_thumbnailing_callback(callbacks[:after_thumbnail])
         rescue => e
-          send_callback(callbacks[:rescue])
+          send_thumbnailing_callback(callbacks[:rescue])
 
           if logger
             logger.error "#{e.class}: #{e.message}"
@@ -52,22 +52,22 @@ module CarrierWave
 
           raise CarrierWave::ProcessingError.new("Failed to thumbnail with ffmpegthumbnailer. Check ffmpegthumbnailer install and verify video is not corrupt. Original error: #{e}")
         ensure
-          reset_logger
-          send_callback(callbacks[:ensure])
+          reset_thumbnailing_logger
+          send_thumbnailing_callback(callbacks[:ensure])
         end
       end
 
-      def send_callback(callback)
+      def send_thumbnailing_callback(callback)
         model.send(callback, @options) if callback.present?
       end
 
-      def setup_logger
+      def setup_thumbnailing_logger
         return unless @options.logger.present?
         @ffmpegthumbnailer_logger = FFMpegThumbnailer.logger
         FFMpegThumbnailer.logger = @options.logger
       end
 
-      def reset_logger
+      def reset_thumbnailing_logger
         return unless @ffmpegthumbnailer_logger
         FFMpegThumbnailer.logger = @ffmpegthumbnailer_logger
       end
