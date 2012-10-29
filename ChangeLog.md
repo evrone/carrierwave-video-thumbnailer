@@ -1,4 +1,4 @@
 ### 0.1.0 / 2012-10-26
 
-* WIP
+* Initial release. Mostly harmless.
 
