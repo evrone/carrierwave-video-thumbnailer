@@ -4,7 +4,7 @@ description: "Lets you make video thumbnails in carrierwave via ffmpegthumbnaile
 license: MIT
 authors: Pavel Argentov
 email: argentoff@gmail.com
-homepage: https://github.com/argent-smith/carrierwave-video-thumbnailer#readme
+homepage: https://github.com/evrone/carrierwave-video-thumbnailer#readme
 
 dependencies:
   carrierwave: '>= 0'
