@@ -1,5 +1,7 @@
 # carrierwave-video-thumbnailer
 
+[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/evrone/carrierwave-video-thumbnailer)
+
 * [Homepage](https://github.com/evrone/carrierwave-video-thumbnailer#readme)
 * [Issues](https://github.com/evrone/carrierwave-video-thumbnailer/issues)
 * [Documentation](http://rubydoc.info/gems/carrierwave-video-thumbnailer/frames)
