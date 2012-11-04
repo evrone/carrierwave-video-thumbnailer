@@ -1,6 +1,6 @@
 # carrierwave-video-thumbnailer
 
-[![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/evrone/carrierwave-video-thumbnailer)
+[![Build Status](https://travis-ci.org/evrone/carrierwave-video-thumbnailer.png)](https://travis-ci.org/evrone/carrierwave-video-thumbnailer) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/evrone/carrierwave-video-thumbnailer)
 
 * [Homepage](https://github.com/evrone/carrierwave-video-thumbnailer#readme)
 * [Issues](https://github.com/evrone/carrierwave-video-thumbnailer/issues)
