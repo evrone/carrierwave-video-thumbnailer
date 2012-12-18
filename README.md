@@ -25,22 +25,23 @@ Here's a working example:
 
 In your Rails `app/uploaders/reel_uploader.rb`:
 
-    class ReelUploader < CarrierWave::Uploader::Base
-      include CarrierWave::Video  # for your video processing
-      include CarrierWave::Video::Thumbnailer
+```ruby
+class ReelUploader < CarrierWave::Uploader::Base
+  include CarrierWave::Video  # for your video processing
+  include CarrierWave::Video::Thumbnailer
 
-      version :thumb do
-        process thumbnail: [{format: 'png', quality: 10, size: 192, strip: true, logger: Rails.logger}]
-        def full_filename for_file
-          png_name for_file, version_name
-        end
-      end
-
-      def png_name for_file, version_name
-        %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.png}
-      end
-
+  version :thumb do
+    process thumbnail: [{format: 'png', quality: 10, size: 192, strip: true, logger: Rails.logger}]
+    def full_filename for_file
+      png_name for_file, version_name
     end
+  end
+
+  def png_name for_file, version_name
+    %Q{#{version_name}_#{for_file.chomp(File.extname(for_file))}.png}
+  end
+end
+```
 
 ## Thumbnailer Options
 
@@ -68,7 +69,11 @@ manual:
 
     $ gem install carrierwave-video-thumbnailer
 
-Or `gem 'carrierwave-video-thumbnailer'` in your Gemfile.
+Or 
+```ruby
+gem 'carrierwave-video-thumbnailer'
+```
+in your Gemfile.
 
 ## Acknowledgements
 
