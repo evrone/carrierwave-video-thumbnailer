@@ -1,4 +1,5 @@
 require 'carrierwave/video/thumbnailer/ffmpegthumbnailer/options'
+require 'open3'
 
 module CarrierWave
   module Video
