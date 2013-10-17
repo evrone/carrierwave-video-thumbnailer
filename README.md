@@ -80,7 +80,7 @@ in your Gemfile.
 If you'like to contribute to the code please note that we are now using [A
 Successful Git Branching Model](http://nvie.com/posts/a-successful-git-branching-model/).
 So, please commit your changes to `feature/*` branches and make Pull Requests
-to the `develpoment` branch. BTW you can install and use `git flow` Git plugin, too.
+to the `development` branch. BTW you can install and use `git flow` Git plugin, too.
 Thanks in advance!
 
 ## Acknowledgements
