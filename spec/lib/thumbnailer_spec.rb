@@ -121,7 +121,7 @@ describe CarrierWave::Video::Thumbnailer do
 
         it "logs exception" do
           logger.should_receive(:error).with("#{e.class}: #{e.message}")
-          logger.should_receive(:error).any_number_of_times  # backtrace
+          logger.stub(:error)
 
           lambda do
             uploader.thumbnail(logger: logger)
