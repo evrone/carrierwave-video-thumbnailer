@@ -34,7 +34,7 @@ describe CarrierWave::Video::Thumbnailer do
 
   describe "#thumbnail" do
     let(:format)      { 'jpg' }
-    let(:thumbnailer) { mock  }
+    let(:thumbnailer) { double  }
 
     before do
       uploader.stub(:current_path).and_return('video/path/file.jpg')
@@ -98,7 +98,7 @@ describe CarrierWave::Video::Thumbnailer do
     end
 
     context "with logger set" do
-      let(:logger) { mock }
+      let(:logger) { double }
       before do
         uploader.model.stub(:logger).and_return(logger)
         thumbnailer.should_receive(:run)
@@ -121,7 +121,7 @@ describe CarrierWave::Video::Thumbnailer do
 
         it "logs exception" do
           logger.should_receive(:error).with("#{e.class}: #{e.message}")
-          logger.should_receive(:error).any_number_of_times  # backtrace
+          logger.stub(:error)
 
           lambda do
             uploader.thumbnail(logger: logger)

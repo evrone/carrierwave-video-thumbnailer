@@ -48,7 +48,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
     end
 
     context "given a logger" do
-      let(:logger) { mock(:logger) }
+      let(:logger) { double(:logger) }
 
       it "should run and log results" do
         @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new({logger: logger})
