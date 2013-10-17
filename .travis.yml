@@ -12,5 +12,6 @@ rvm:
 branches:
   only:
     - /^feature\/.*$/
+    - develop
     - master
     - stable
