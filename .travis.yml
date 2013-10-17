@@ -1,12 +1,16 @@
 language: ruby
 rvm:
+  - 2.0.0
   - 1.9.3
   - rbx-19mode
+  - rbx-20mode
   - jruby-19mode
+  - jruby-20mode
   - ruby-head
 
 
 branches:
   only:
+    - /^feature\/.*$/
     - master
     - stable
