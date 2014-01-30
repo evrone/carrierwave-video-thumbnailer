@@ -41,7 +41,7 @@ module CarrierWave
 
         def run options
           logger = options.logger
-          cmd = %Q{#{CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.binary} -i #{input_path} -o #{output_path} #{options.to_cli}}.rstrip
+          cmd = %Q{#{CarrierWave::Video::Thumbnailer::FFMpegThumbnailer.binary} -i "#{input_path}" -o "#{output_path}" #{options.to_cli}}.rstrip
 
             logger.info("Running....#{cmd}") if logger
             outputs = []
