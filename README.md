@@ -53,7 +53,7 @@ manual:
 
   * format: 'jpg' or 'png' ('jpg' is the default).
   * quality:  compression quality (1 to 10, default is 8).
-  * size: thumbnail length in pixels (defaults to 128).
+  * size: thumbnail width in pixels (defaults to 128) (default keep initial aspect ratio).
   * strip: movie film strip decoration (defaults to `false`).
   * seek: where to take the snapshot. May be specified as HH:MM:SS or X%.
     Defaults to 10%.
