@@ -19,6 +19,8 @@ Runs `ffmpegthumbnailer` with CLI keys provided by your configuration or just
 uses quite a reasonable ffmpegthumbnailer's defaults. See Examples section for
 details.
 
+* macOS: you can run `brew install ffmpegthumbnailer`
+
 ## Examples
 
 Here's a working example:
