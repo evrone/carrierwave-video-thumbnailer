@@ -16,7 +16,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
 
     it "should run the ffmpegthumbnailer binary" do
       @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new({})
-      command = "#{binary} -i #{input_file_path} -o #{output_file_path}"
+      command = "#{binary} -i \"#{input_file_path}\" -o \"#{output_file_path}\""
       Open3.should_receive(:popen3).with(command)
 
       thumbnailer.run @options
@@ -39,7 +39,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
 
         @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new opts
 
-        cli = "#{binary} -i #{input_file_path} -o #{output_file_path} -c png -s 512 -t 20% -q 10 -a -f -w -v"
+        cli = "#{binary} -i \"#{input_file_path}\" -o \"#{output_file_path}\" -c png -s 512 -t 20% -q 10 -a -f -w -v"
         Open3.should_receive(:popen3).with(cli)
 
         thumbnailer.run @options
@@ -52,7 +52,7 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
 
       it "should run and log results" do
         @options = CarrierWave::Video::Thumbnailer::FFMpegThumbnailerOptions.new({logger: logger})
-        command = "#{binary} -i #{input_file_path} -o #{output_file_path}"
+        command = "#{binary} -i \"#{input_file_path}\" -o \"#{output_file_path}\""
         Open3.should_receive(:popen3).with(command)
         logger.should_receive(:info).with("Running....#{command}")
         logger.should_receive(:error).with("Failure!")
@@ -62,5 +62,3 @@ describe CarrierWave::Video::Thumbnailer::FFMpegThumbnailer do
     end
   end
 end
-
-
