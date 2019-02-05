@@ -1,25 +1,33 @@
 # carrierwave-video-thumbnailer
 
-[![Build Status](https://travis-ci.org/evrone/carrierwave-video-thumbnailer.png)](https://travis-ci.org/evrone/carrierwave-video-thumbnailer) [![Code Climate](https://codeclimate.com/badge.png)](https://codeclimate.com/github/evrone/carrierwave-video-thumbnailer)
-
-* [Homepage](https://github.com/evrone/carrierwave-video-thumbnailer#readme)
-* [Issues](https://github.com/evrone/carrierwave-video-thumbnailer/issues)
-* [Documentation](http://rubydoc.info/gems/carrierwave-video-thumbnailer/frames)
-* [Email](mailto:argentoff at gmail.com)
-
-## Description
+[![Build Status](https://travis-ci.org/evrone/carrierwave-video-thumbnailer.png)](https://travis-ci.org/evrone/carrierwave-video-thumbnailer) 
+[![Maintainability](https://api.codeclimate.com/v1/badges/a99a88d28ad37a79dbf6/maintainability)](https://codeclimate.com/github/evrone/carrierwave-video-thumbnailer/maintainability)
 
 A thumbnailer plugin for Carrierwave. It mixes into your uploader setup and
 makes easy thumbnailing of your uploaded videos. This software is quite an
 alpha right now so any kind of OpenSource collaboration is welcome.
 
-## Features
+<a href="https://evrone.com/?utm_source=github.com">
+  <img src="https://evrone.com/logo/evrone-sponsored-logo.png"
+       alt="Sponsored by Evrone" width="231">
+</a>
 
-Runs `ffmpegthumbnailer` with CLI keys provided by your configuration or just
-uses quite a reasonable ffmpegthumbnailer's defaults. See Examples section for
-details.
+## Getting Started
+### Prerequisites
 
-## Examples
+`ffmpegthumbnailer` binary should be present on the PATH.
+
+### Installation
+
+    gem install carrierwave-video-thumbnailer
+
+Or 
+```ruby
+gem 'carrierwave-video-thumbnailer'
+```
+in your Gemfile.
+
+### Usage
 
 Here's a working example:
 
@@ -43,7 +51,10 @@ class ReelUploader < CarrierWave::Uploader::Base
 end
 ```
 
-## Thumbnailer Options
+Runs `ffmpegthumbnailer` with CLI keys provided by your configuration or just
+uses quite a reasonable ffmpegthumbnailer's defaults.
+
+##### Thumbnailer Options
 
 The options are passed as a hash to the `thumbnail` processing callback as
 shown in the example. The options may be, according to ffmpegthumbnailer's
@@ -61,40 +72,31 @@ manual:
     (read `man ffmpegthumbnailer` for further explanations).
   * logger: an object behaving like Rails.logger (may be omitted).
 
-## Requirements
+## Contributing
 
-`ffmpegthumbnailer` binary should be present on the PATH.
+Please read [Code of Conduct](CODE-OF-CONDUCT.md) and [Contributing Guidelines](CONTRIBUTING.md) for submitting pull requests to us.
 
-## Install
+## Versioning
 
-    $ gem install carrierwave-video-thumbnailer
+We use [SemVer](http://semver.org/) for versioning. For the versions available, 
+see the [tags on this repository](https://github.com/evrone/carrierwave-video-thumbnailer/tags). 
 
-Or 
-```ruby
-gem 'carrierwave-video-thumbnailer'
-```
-in your Gemfile.
+## Changelog
 
-## Contributions
+The changelog is [here](CHANGELOG.md).
 
-If you'like to contribute to the code please note that we are now using [A
-Successful Git Branching Model](http://nvie.com/posts/a-successful-git-branching-model/).
-So, please commit your changes to `feature/*` branches and make Pull Requests
-to the `development` branch. BTW you can install and use `git flow` Git plugin, too.
-Thanks in advance!
+## Authors
 
-## Acknowledgements
+* [Pavel Argentov](https://github.com/argent-smith) - *Initial work*
+
+See also the list of [contributors](https://github.com/evrone/carrierwave-video-thumbnailer/contributors) who participated in this project.
+
+## License
+
+This project is licensed under the [MIT License](LICENSE).
+
+## Acknowledgments
 
 Huge Thanks to **Rachel Heaton** (<https://github.com/rheaton>) whose
 `carrierwave-video` gem has inspired me (and where I've borrowed some code as
 well).
-
-Thanks to [Evrone Web Laboratory](http://evrone.com) which feeds me well enough (with the
-tasks of course) to do this job.
-
-## Copyright
-
-Copyright (c) 2012 Pavel Argentov
-Copyright (c) 2012 Evrone.com
-
-See [LICENSE.txt](LICENSE.txt) for details.
