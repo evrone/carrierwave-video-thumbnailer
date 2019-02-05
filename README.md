@@ -120,6 +120,13 @@ manual:
   * workaround: if set to `true` runs ffmpegthumbnailer in some safe mode
     (read `man ffmpegthumbnailer` for further explanations).
   * logger: an object behaving like Rails.logger (may be omitted).
+  
+
+##### film stripes
+  
+For disable film stripes in thumbnail check strip to false
+
+    process thumbnail: [{format: 'png', quality: 10, size: 192, strip: false, logger: Rails.logger}]
 
 ## Contributing
 
