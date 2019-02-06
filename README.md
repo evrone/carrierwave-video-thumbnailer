@@ -22,6 +22,8 @@ alpha right now so any kind of OpenSource collaboration is welcome.
 
 `ffmpegthumbnailer` binary should be present on the PATH.
 
+[ffmpegthumbnailer git repository](https://github.com/dirkvdb/ffmpegthumbnailer)
+
 ### Installation
 
     gem install carrierwave-video-thumbnailer
@@ -31,6 +33,10 @@ Or add to your Gemfile:
 ```ruby
 gem 'carrierwave-video-thumbnailer'
 ```
+
+If you need resize thumbnail add 
+[RMagick](https://github.com/rmagick/rmagick) or 
+[MiniMagic](https://github.com/minimagick/minimagick)
 
 ### Usage
 
@@ -86,6 +92,21 @@ gem 'carrierwave-video-thumbnailer'
         end
     end
     ```
+    
+    For resize thumbnail add version:
+    
+    ```ruby
+        class VideoUploader < CarrierWave::Uploader::Base
+           include CarrierWave::MiniMagick
+        
+           ...
+        
+           version :small_thumb, from_version: :thumb do
+             process resize_to_fill: [20, 200]
+           end
+     
+        end
+    ```     
 
 5. Don't forget add parameter in controller 
     
@@ -110,13 +131,12 @@ shown in the example. The options may be, according to ffmpegthumbnailer's
 manual:
 
   * format: 'jpg' or 'png' ('jpg' is the default).
-  * quality:  compression quality (1 to 10, default is 8).
-  * size: thumbnail width in pixels (defaults to 128) (default keep initial aspect ratio).
+  * quality: image quality (0 = bad, 10 = best) (default: 8) only applies to jpeg output
+  * size: size of the generated thumbnail in pixels (use 0 for original size) 
+    (default value: 128 and keep initial aspect ratio).
   * strip: movie film strip decoration (defaults to `false`).
-  * seek: where to take the snapshot. May be specified as HH:MM:SS or X%.
-    Defaults to 10%.
-  * square: if set to `true` makes a square thumbnail regardless of an initial
-    aspect ratio.
+  * seek: time to seek to (`percentage` or absolute time `hh:mm:ss`) (default: 10)
+  * square: if set to `true` ignore aspect ratio and generate square thumbnail.
   * workaround: if set to `true` runs ffmpegthumbnailer in some safe mode
     (read `man ffmpegthumbnailer` for further explanations).
   * logger: an object behaving like Rails.logger (may be omitted).
